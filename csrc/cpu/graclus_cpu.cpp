@@ -15,7 +15,8 @@ torch::Tensor graclus_cpu(torch::Tensor rowptr, torch::Tensor col,
 
   int64_t num_nodes = rowptr.numel() - 1;
   auto out = torch::full(num_nodes, -1, rowptr.options());
-  auto node_perm = torch::randperm(num_nodes, rowptr.options());
+  //auto node_perm = torch::randperm(num_nodes, rowptr.options());
+  auto node_perm = torch::arange(0, num_nodes, rowptr.options().dtype(torch::kLong));
 
   auto rowptr_data = rowptr.data_ptr<int64_t>();
   auto col_data = col.data_ptr<int64_t>();
